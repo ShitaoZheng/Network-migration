@@ -75,5 +75,5 @@ if __name__ == '__main__':
     try:
         nfqueue.run()
     except KeyboardInterrupt:
-        print(")
+        print('')
     nfqueue.unbind()
