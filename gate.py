@@ -14,9 +14,10 @@ class TCPSession:
 DST_SERVER = '192.168.1.103'
 #dest port
 DST_PORT = 30001
+
+
 #client -> server1 session
 
-#netfilterqueue callback
 def print_and_accept(pkt):
     global dst_sport,dst_seq,dst_ack,tcpsession
     ip = IP(pkt.get_payload())
@@ -64,7 +65,7 @@ def print_and_accept(pkt):
                 data_len = ans[TCP].ack - dst_seq
                 dst_seq = ans[TCP].ack
                 dst_ack = ans[TCP].seq
-                # send first ack to client
+                
                 send(IP(dst=ip.src) / TCP(dport=tcp.sport, sport=tcp.dport, ack=tcp.seq + data_len, seq=tcp.ack,flags='A'), verbose=False)
                 pkt.drop()
 
@@ -73,5 +74,6 @@ if __name__ == '__main__':
     nfqueue.bind(1, print_and_accept)
     try:
         nfqueue.run()
-    except KeyboardInterrupt as e:
-        print(e)
+    except KeyboardInterrupt:
+        print(")
+    nfqueue.unbind()
